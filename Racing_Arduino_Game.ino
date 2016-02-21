@@ -1,4 +1,4 @@
-//v.1.0 itcooky@mail.ru
+//v.1.0.1 itcooky@mail.ru
 #include <EEPROM.h>
 #include <LiquidCrystal_I2C.h>
 #include <Wire.h>
@@ -17,8 +17,11 @@ int b = 0;
 int c = 0;
 int x = 16;
 int x2 = 18;
-int x3 = 19;
+int x3 = 20;
 int x4 = 23;
+int x12 = 0;
+int x13 = 0;
+int x14 = 0;
 int d = 0;
 int t = 250; 
 boolean sw = false;
@@ -80,6 +83,14 @@ if (c == 1 ) {
 game = true;
 
 if ((millis() - l >  t)) { 
+  
+if (((x == 16) && (x2 == 16)) || ((x2 == 16) && (x3 == 16))) {
+x2= x2+2;
+}
+if (((x == 16) && (x4 == 16)) || ((x4 == 16) && (x3 == 16))) {
+x4= x4+2;
+}
+
 if (pb == 0) {
 lcd.setCursor(0, 0);
 lcd.print("Z");
@@ -132,6 +143,9 @@ switch (s) {
   case 400:
   d = d + 1;
   break;
+  case 500:
+  t = t - 10;
+  break;
   case 600:
   t = t - 10;
   break;
@@ -142,31 +156,29 @@ if (x == 0) {
 x = 16 + random(0,1);
 lcd.setCursor(1, 0);
 lcd.print(" ");
+x12= x + random(2,3)+2;
+x13 = x12 + random(1,3)+2;
+x14 = x13 + random(2,3)+3;
 }
 if (x2 == 0) {
-x2 = 16 + random(3,4);
+x2 = x12;
 lcd.setCursor(1, 1);
 lcd.print(" ");
-if ( (x2 <= x) || (x2 = x3)) {
- x2 = x2 + random(2,4);
 
-} 
 }
 if (x3 == 0) {
-x3 = 18 + random(3,4);
+x3 = x13;
 lcd.setCursor(1, 0);
 lcd.print(" ");
-if (x3 <= x2) {
- x3 = x3 + random(2,3);
-} 
+
+
 }
 if (x4 == 0) {
-x4 = 19 + random(3,4);
+x4 = x14;
 lcd.setCursor(1, 1);
 lcd.print(" ");
-if ((x4 <= x3) ||  (x4 <= x)) {
- x4 = x4 + 2;
-} 
+
+ 
 } 
 }
 
@@ -188,7 +200,7 @@ p = 0;
 }
 
 if ((s > 0) && (game == false)) { 
-  smax = EEPROM.read(addr);
+ smax = EEPROM.read(addr);
 if (s > smax) {
 EEPROM.write(addr, s);
 lcd.clear();
@@ -219,15 +231,15 @@ s = 0;
 t = 250;
 d = 0;
 x = 16;
-x2 = 25;
-x3 = 19;
+x2 = 18;
+x3 = 20;
 x4 = 23;
 }
 }
 void begin() {
-	start = millis(); //получаем текущее значение millis
+	start = millis(); 
 }
 
 void end() {
-	stop = millis() - start; //вычисляем промежуток
+	stop = millis() - start; 
 }
