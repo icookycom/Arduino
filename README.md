@@ -8,7 +8,8 @@ Hardware
 - LCD module Blue screen IIC/I2C
 - Buttin
 - 10 kOm
- see racing_arduino_game.fzz
+ 
+see racing_arduino_game.fzz
 
 Control
 - 1 button press - Start Game
