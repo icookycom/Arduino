@@ -1,4 +1,4 @@
-//v.1.0.1 itcooky@mail.ru
+//v.1.0.2 itcooky@mail.ru
 #include <EEPROM.h>
 #include <LiquidCrystal_I2C.h>
 #include <Wire.h>
@@ -27,7 +27,6 @@ int t = 250;
 boolean sw = false;
 boolean game = false;
 int pb = 0;
-int addr = 0;
 void setup() {
 pinMode(sp, INPUT);
 digitalWrite(sp, HIGH);
@@ -71,7 +70,10 @@ lcd.print("3 press-DeletRec");
 }
 
 if (c == 3)  {
-EEPROM.write(addr, 0);
+
+EEPROM.write(0, 0);
+EEPROM.write(1, 0); 
+
 lcd.setCursor(0, 0);
 lcd.print("Deleted Record");
 lcd.setCursor(0, 1);
@@ -200,22 +202,29 @@ p = 0;
 }
 
 if ((s > 0) && (game == false)) { 
- smax = EEPROM.read(addr);
+byte xx[] = {EEPROM.read(0), EEPROM.read(1)};
+int *y = (int *)&xx;
+smax = y[0];
+
 if (s > smax) {
-EEPROM.write(addr, s);
+byte *x = (byte *)&s;
+EEPROM.write(0, x[0]);
+EEPROM.write(1, x[1]); 
+  
+//EEPROM.write(addr, s);
+
 lcd.clear();
 lcd.setCursor(0, 0);
-l = millis();
 lcd.print("!!!NEW RECORD!!!");
 lcd.setCursor(0, 1);
 lcd.print(" Best Score:");
 lcd.setCursor(12, 1);
 lcd.print(s);
+delay(3000);
 }
 else {
 lcd.clear();
 lcd.setCursor(0, 0);
-l = millis();
 lcd.print("###GAME##OVER###");
 lcd.setCursor(0, 1);
 lcd.print("YScore:");
@@ -225,7 +234,9 @@ lcd.setCursor(11, 1);
 lcd.print("<");
 lcd.setCursor(12, 1);
 lcd.print(smax);
+delay(3000);
 }
+
 c = 0;
 s = 0;
 t = 250;
