@@ -1,8 +1,16 @@
-//v.1.0.2 itcooky@mail.ru
+//v.1.0.3 itcooky@mail.ru
+//you need library LiquidCrystal_V1.2.1.zip
+//edit after add LiquidCrystal_V1.2.1.zip file ...\LiquidCrystal\I2CIO.cpp
+//str
+//#include <../Wire/Wire.h>
+//edit to
+//#include <Wire.h>
+
 #include <EEPROM.h>
 #include <LiquidCrystal_I2C.h>
 #include <Wire.h>
-#include <LCD.h>
+
+//it will be 0x3f or maybe 0x27
 LiquidCrystal_I2C lcd(0x3f, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 
 volatile unsigned long start = 0; 
