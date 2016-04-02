@@ -16,3 +16,5 @@ Control
    - 1.1 button press - Change car position
 - 2 button press - Menu
 - 3 button press - Delate Max Score Statistics
+
+Example: https://www.youtube.com/watch?v=4V5jTWCV5ak
